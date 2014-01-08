@@ -8,11 +8,11 @@ class CsvDb
         data = row.to_hash
         if data.present?
           if (block_given?)
-             block.call(target_model, data)
-           else
-             target_model.create!(data, :as => role)
-           end
-         end
+            block.call(target_model, data, role)
+          else
+            target_model.create!(data, :as => role)
+          end
+        end
       end
     end
   end
