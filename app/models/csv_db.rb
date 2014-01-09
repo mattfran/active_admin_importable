@@ -8,10 +8,9 @@ class CsvDb
         data = row.to_hash
         if data.present?
           if (block_given?)
-            block.call(target_model, data, role).tap do |value|
-              if value.nil?
-                raise
-              end
+            value = block.call(target_model, data, role)
+            if value.nil?
+              raise
             end
           else
             target_model.create!(data, :as => role)
