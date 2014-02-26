@@ -13,8 +13,8 @@ module ActiveAdminImportable
         role = resources_configuration[:self][:role] || :default
         begin
           CsvDb.convert_save(active_admin_config.resource_class, params[:dump][:file], role, &block)
-        rescue
-          redirect_to({:action => :index}, {:notice => "#{active_admin_config.resource_name.to_s} import failed!"})
+        rescue => e
+          redirect_to({:action => :index}, {:notice => "#{active_admin_config.resource_name.to_s} import failed! #{e.message}"})
         else
           redirect_to({:action => :index}, {:notice => "#{active_admin_config.resource_name.to_s} imported successfully!"})
         end

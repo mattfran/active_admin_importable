@@ -9,8 +9,8 @@ class CsvDb
         if data.present?
           if (block_given?)
             value = block.call(target_model, data, role)
-            if value.nil?
-              raise
+            if value[:error].present?
+              raise value[:error]
             end
           else
             target_model.create!(data, :as => role)
